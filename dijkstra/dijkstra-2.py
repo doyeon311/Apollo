@@ -7,14 +7,32 @@ import sys
 input = sys.stdin.readline
 INF = int(1e9)
 
-n, m = map(int, input().split())
-start = int(input())
+# n, m = map(int, input().split())
+n, m = [6, 11]
+# start = int(input())
+start = 1
 
 graph = [[] for _ in range(n+1)]
 distance = [INF] * (n + 1)
 
-for _ in range(m):
-  a, b, c = map(int, input().split())
+temp = [
+  [1, 2, 2],
+  [1, 3, 5],
+  [1, 4, 1],
+  [2, 3, 3],
+  [2, 4, 2],
+  [3, 2, 3],
+  [3, 6, 5],
+  [4, 3, 3],
+  [4, 5, 1],
+  [5, 3, 1],
+  [5, 6, 2],
+]
+
+# for _ in range(m):
+#   a, b, c = map(int, input().split())
+for t in temp:
+  a, b, c = t
   graph[a].append((b, c))
 
 def dijkstra(start):
@@ -41,3 +59,26 @@ for i in range(1, n + 1):
     print('INF')
   else:
     print(distance[i])
+
+
+# 복습 ================================================
+    
+distance = [INF] * (n + 1)
+
+q = []
+heapq.heappush(q, (0, start))
+distance[start] = 0
+
+while q:
+  dist, node = heapq.heappop(q)
+
+  if dist > distance[node]:
+    continue
+
+  for g in graph[node]:
+    cost = dist + g[1]
+    if cost < distance[g[0]]:
+      distance[g[0]] = cost
+      heapq.heappush(q, (cost, g[0]))
+
+print(distance)

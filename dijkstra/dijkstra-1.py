@@ -6,10 +6,12 @@ input = sys.stdin.readline
 INF = int(1e9)
 
 # 노드의 개수, 간선의 개수
-n, m = map(int, input().split())
+# n, m = map(int, input().split())
+n, m = [6, 11]
 
 # 시작 노드
-start = int(input())
+# start = int(input())
+start = 1
 
 # 노드 연결 정보
 graph = [[] for _ in range(n + 1)]
@@ -17,9 +19,25 @@ graph = [[] for _ in range(n + 1)]
 visited = [False] * (n + 1)
 distance = [INF] * (n + 1)
 
-for _ in range(m):
+temp = [
+  [1, 2, 2],
+  [1, 3, 5],
+  [1, 4, 1],
+  [2, 3, 3],
+  [2, 4, 2],
+  [3, 2, 3],
+  [3, 6, 5],
+  [4, 3, 3],
+  [4, 5, 1],
+  [5, 3, 1],
+  [5, 6, 2],
+]
+
+# for _ in range(m):
+for t in temp:
   # a에서 b까지 가는 비용이 c
-  a, b, c = map(int, input().split())
+  # a, b, c = map(int, input().split())
+  a, b, c = t
   graph[a].append((b, c))
 
 def get_smallest_node():
@@ -55,3 +73,44 @@ for i in range(1, n + 1):
     print('INF')
   else:
     print(distance[i])
+
+
+# 복습 ============================================================
+# n, m = map(int, input().split())
+INF = int(1e9)
+
+# start = int(input())
+# graph = [[] for _ in range(n + 1)]
+
+visited = [False] * (n + 1)
+distance = [INF] * (n + 1)
+
+# for _ in range(m):
+#   a, b, c = map(int, input().split())
+
+#   graph[a].append((b, c))
+
+def get_smallest_node():
+  index = -1
+
+  for i in range(1, n + 1):
+    if visited[i] == False and distance[i] < distance[index]:
+      index = i
+  return index
+
+distance[start] = 0
+visited[start] = 0
+
+for d in graph[start]:
+  distance[d[0]] = d[1]
+
+for _ in range(n + 1):
+  smallest = get_smallest_node()
+  visited[smallest] = True
+
+  for d in graph[smallest]:
+    cost = distance[smallest] + d[1]
+    if distance[d[0]] > cost:
+      distance[d[0]] = cost
+
+print(distance)
