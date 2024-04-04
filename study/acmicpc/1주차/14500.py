@@ -50,7 +50,6 @@ def put_tetromino(putted, score):
       if 0 <= nx < n and 0 <= ny < m and is_putted(putted, [nx, ny]) == False:
         put_tetromino(putted + [[nx, ny]], score + board[nx][ny])
 
-
 for i in range(n):
   for j in range(m):
     put_tetromino([[i, j]], board[i][j])
