@@ -27,7 +27,7 @@ def dfs(num_str, current):
 
     nx = x + dx
     ny = y + dy
-    # print(num_str, current)
+
     if 0 <= nx < 5 and 0 <= ny < 5:
       current_str = num_str + str(board[nx][ny])
       dfs(current_str, (nx, ny))
@@ -35,5 +35,5 @@ def dfs(num_str, current):
 for i in range(5):
   for j in range(5):
     dfs(str(board[i][j]), (i, j))
-# print(set(nums))
+
 print(len(list(set(nums))))
